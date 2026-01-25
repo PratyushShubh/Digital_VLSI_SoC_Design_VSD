@@ -1,10 +1,9 @@
 # Digital_VLSI_SoC_Design_VSD
-# VSD ASIC Design Course – Day 1
 
 This repository documents my learning from the **VSD (VLSI System Design) ASIC Design Course**. Focused on building a *complete conceptual foundation*—from application software down to silicon layout—using **RISC‑V**, **open‑source EDA tools**, and the **OpenLANE ASIC flow**.
 
 ---
-DAY 1
+# DAY 1
 
 ## 1. Big Picture: From Application Software to Silicon
 
