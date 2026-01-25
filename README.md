@@ -239,4 +239,111 @@ OpenLANE is an **automated RTL‑to‑GDSII flow** for digital ASICs.
 
 **Status:** Day 1 Completed
 
-Next: RTL Design, Synthesis, and Timing Fundamentals
+# Day 2 – Floorplanning, Power Integrity, Standard Cells, and Characterization
+1. Core and Die Planning
+<img width="1434" height="619" alt="Screenshot 2026-01-26 042855" src="https://github.com/user-attachments/assets/aa0f9b8a-b489-446f-a9a7-7ca9c34181b7" />
+
+
+This stage defines the physical boundary of the chip and the region where logic will actually be placed. The die is the total silicon area, while the core is the active region reserved for standard cells. Decisions made here silently control congestion, timing feasibility, and routing success later in the flow.
+
+Core size is derived from cell area and utilization factor, not guessed
+
+Aspect ratio (height/width) impacts wirelength and clock distribution
+
+Lower utilization improves routability but increases area
+
+2. Power Delivery and Switching Current
+
+<img width="1448" height="1096" alt="Screenshot 2026-01-26 043002" src="https://github.com/user-attachments/assets/65ab74b6-5237-48d2-8aa6-49dee85d4a40" />
+
+
+As designs grow complex, simultaneous switching creates large transient current demands. Power is not ideal; resistance and inductance in the supply path cause voltage droop and ground bounce. This makes power planning a functional requirement, not just a reliability concern.
+
+High di/dt during clock edges stresses VDD/VSS
+
+IR drop and Ldi/dt directly affect logic correctness
+
+Power grid and decoupling are planned early to avoid failures
+
+3. Noise Margin and Signal Integrity
+
+<img width="1482" height="735" alt="Screenshot 2026-01-26 043014" src="https://github.com/user-attachments/assets/76193c93-e4e7-47e4-a4c9-7bd0066c7b7a" />
+
+
+Real digital signals contain noise bumps rather than clean transitions. Noise margins define how much disturbance a signal can tolerate before logic interpretation becomes unstable. This concept explains why power integrity, routing, and cell choice are tightly linked.
+
+Signals between VIL and VIH enter undefined behavior
+
+Small noise is acceptable if it stays within margin limits
+
+Poor margins lead to random logic failures, not timing errors
+
+4. Logical Cell Placement Blockages
+
+
+<img width="1131" height="788" alt="Screenshot 2026-01-26 043233" src="https://github.com/user-attachments/assets/9c391314-ff85-4c11-96dc-f608892810d5" />
+
+Placement blockages guide the placer by reserving regions where standard cells must not be placed. These are typically around macros, clock structures, or routing-critical zones. Proper blockage planning prevents congestion and CTS issues later.
+
+Prevents cells from occupying sensitive regions
+
+Improves routing predictability
+
+Makes the design placement-ready
+
+5. Standard Cell Library Structure
+
+
+<img width="1392" height="826" alt="Screenshot 2026-01-26 043530" src="https://github.com/user-attachments/assets/814d81b9-e808-4f4e-b1f2-5fddc5477a79" />
+
+Standard cells are provided in multiple versions of the same logic. Each variant trades off speed, power, leakage, and area. Physical design tools rely on these choices to meet timing and power goals automatically.
+
+Same logic function, different drive strengths (size1, size2, size3)
+
+Multiple threshold voltages (HVT, LVT, etc.)
+
+Cell choice directly affects timing and leakage
+
+6. Cell Design Flow
+
+
+<img width="1301" height="818" alt="Screenshot 2026-01-26 043636" src="https://github.com/user-attachments/assets/37df0f7c-3a3d-4069-b870-ae520b080c1e" />
+
+Cell design begins with the PDK and ends with a fully characterized library. Only after layout correctness and electrical extraction can a cell be used safely by synthesis and P&R tools.
+
+Inputs: PDK rules, SPICE models, design specs
+
+Steps: circuit design, layout, verification, characterization
+
+Outputs: LEF, GDS, CDL, SPICE, timing and power libraries
+
+7. Timing and Cell Characterization
+
+
+<img width="1325" height="818" alt="Screenshot 2026-01-26 043706" src="https://github.com/user-attachments/assets/45923449-39f9-4512-93bc-cbbe9d5b06a1" />
+
+Characterization converts transistor-level behavior into numbers usable by digital tools. Controlled input pulses, loads, and supplies are used to observe real waveforms and extract delay and power data.
+
+Input stimulus applied under defined conditions
+
+Output response measured at threshold crossings
+
+Data feeds timing and power models
+
+8. Timing Thresholds and Propagation Delay
+
+
+<img width="1060" height="730" alt="Screenshot 2026-01-26 043724" src="https://github.com/user-attachments/assets/68a452f9-4c8d-475d-820d-1136eaf2e77b" />
+
+Timing is measured using defined voltage thresholds rather than ideal transitions. Propagation delay is calculated as the time difference between input and output threshold crossings, which explains why delays vary with slew and load.
+<img width="768" height="612" alt="Screenshot 2026-01-26 043814" src="https://github.com/user-attachments/assets/8d22973c-330d-4200-b6c2-92f2c6d1acb3" />
+
+Separate thresholds for rise and fall
+
+Delay measured between input and output crossings
+
+
+Forms the basis of .lib timing tables
+
+Status: Day 2 Completed
+
