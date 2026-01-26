@@ -1,6 +1,8 @@
 # Digital_VLSI_SoC_Design_VSD
 
-This repository documents my learning from the **VSD (VLSI System Design) ASIC Design Course**. Focused on building a *complete conceptual foundation*—from application software down to silicon layout—using **RISC‑V**, **open‑source EDA tools**, and the **OpenLANE ASIC flow**.
+
+Welcome to the Digital VLSI System-on-Chip (SoC) Design repository, documenting my learning and hands-on work from the VSD IAT Digital VLSI SoC Design course. This repository captures five days of structured theory, practical labs, and an end-to-end OpenLANE RTL-to-GDSII ASIC implementation flow with the SkyWater 130nm process design kit (PDK).
+This course introduced modern open-source electronic design automation (EDA) tools and guided them through complete digital SoC design concepts: from foundational VLSI principles and floorplanning to physical synthesis, placement, routing, static timing analysis, and final GDS layout generation via the OpenLANE automated flow.
 
 ---
 # DAY 1
@@ -202,7 +204,7 @@ RTL (Register Transfer Level) describes **how data moves between registers** eve
 
 ---
 </details>
-## 10. OpenLANE ASIC Flow (Overview)
+OpenLANE ASIC Flow (Overview)
 
 ### Definition
 <img width="1302" height="712" alt="Screenshot 2026-01-26 042705" src="https://github.com/user-attachments/assets/516f74c5-622b-44cc-8535-a32df6ca80cf" />
