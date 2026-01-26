@@ -252,6 +252,15 @@ Aspect ratio (height/width) impacts wirelength and clock distribution
 
 Lower utilization improves routability but increases area
 
+It was implented and found out as below:
+Total number of cells are highlighted here:
+<img width="1280" height="575" alt="Screenshot from 2026-01-25 03-52-37" src="https://github.com/user-attachments/assets/de0df7e6-a6a4-4778-9a8e-163522b5d49d" />
+Total number of DFF are:
+<img width="1280" height="575" alt="Screenshot from 2026-01-25 03-52-37" src="https://github.com/user-attachments/assets/128c8c2e-d4ca-4d7b-8737-0e4f6f9450f7" />
+Thus the Utilization factor comes as: 1613/14876 = 0.1084296
+Total area came as:
+<img width="1280" height="268" alt="Screenshot from 2026-01-25 03-51-37" src="https://github.com/user-attachments/assets/82f97e71-9135-461d-b561-9a0a504012ab" />
+
 2. Power Delivery and Switching Current
 
 <img width="1448" height="1096" alt="Screenshot 2026-01-26 043002" src="https://github.com/user-attachments/assets/65ab74b6-5237-48d2-8aa6-49dee85d4a40" />
@@ -344,6 +353,72 @@ Delay measured between input and output crossings
 
 
 Forms the basis of .lib timing tables
+
+
+
+
+Practical Lab Screenshots for DAY 2:
+
+Variables looked up and read the files :
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-15-52" src="https://github.com/user-attachments/assets/d80ef436-1471-41d8-ba29-f3d755c88ecd" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-18-01" src="https://github.com/user-attachments/assets/388dc084-35ad-452e-b90e-95b4cda7c736" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-18-34" src="https://github.com/user-attachments/assets/ddc2ee3e-2538-4773-ab10-cff72293ba99" />
+Config.tcl file:
+<img width="1280" height="377" alt="Screenshot from 2026-01-27 02-21-30" src="https://github.com/user-attachments/assets/4f6567f5-0326-4d68-bb74-a4a474f3673a" />
+Making Docker (command is highlighted):
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-24-26" src="https://github.com/user-attachments/assets/ec5c1053-7ddb-46b6-b69d-bb1d0a826e0c" />
+Running synthesis:
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-26-47" src="https://github.com/user-attachments/assets/4bb66022-e0f9-49bc-a840-0d7c2374b346" />
+Synthesis was complete:
+<img width="1280" height="768" alt="Screenshot from 2026-01-25 03-51-45" src="https://github.com/user-attachments/assets/9f22a9e5-15bb-429f-8d53-31d9d9d1f2e7" />
+STA analysis reports:
+<img width="1280" height="768" alt="Screenshot from 2026-01-25 03-57-10" src="https://github.com/user-attachments/assets/03cddabd-b41d-4961-a680-e3f4c613030c" />
+Floorplanning was completed:
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-29-09" src="https://github.com/user-attachments/assets/f9296614-7390-4f1c-8cf1-caddaf1ee9b7" />
+Checking values for V,H IO PINS metal layer / Core utilization :
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-35-27" src="https://github.com/user-attachments/assets/d9bb68c0-882b-4041-8892-39de5b7d1a6d" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-38-01" src="https://github.com/user-attachments/assets/3637161c-7405-46ad-b5c6-232da7c7ed42" />
+Command to open MAGIC tool:
+<img width="1280" height="222" alt="Screenshot from 2026-01-27 02-55-28" src="https://github.com/user-attachments/assets/9150077a-6ce8-45ce-9c69-558916002de9" />
+MAGIC:
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-55-36" src="https://github.com/user-attachments/assets/13906016-deef-4aee-b16e-6d05aa23c143" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-55-48" src="https://github.com/user-attachments/assets/dd29ac59-8e96-4b00-88c6-e1c057cfa280" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-56-12" src="https://github.com/user-attachments/assets/21e24e35-4083-47f7-9d01-f0eea07c2206" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-56-19" src="https://github.com/user-attachments/assets/c5b21107-7949-4eca-b1db-d5dd2487c189" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-55-48" src="https://github.com/user-attachments/assets/21499f82-5b9e-434a-bbf1-00ec5f6f3961" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-56-12" src="https://github.com/user-attachments/assets/1d0ac1d0-db8d-4455-9ec0-4539d95bd3bf" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-59-17" src="https://github.com/user-attachments/assets/7eb21d3d-9afa-4757-81f7-ad7044207497" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-59-45" src="https://github.com/user-attachments/assets/c969e465-3b78-4c3f-b309-cc5b873df466" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-59-57" src="https://github.com/user-attachments/assets/4c1ead56-8b14-4400-b063-3e3e3d187c27" />
+
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-00-14" src="https://github.com/user-attachments/assets/10409991-b9d5-497d-a21c-367c8ddde743" />
+
+NOTE: Some error occured due to wrong command and SS for abnormal ouput is:
+wrong command:
+<img width="1280" height="218" alt="Screenshot from 2026-01-27 02-43-51" src="https://github.com/user-attachments/assets/51de1c62-1296-439d-9712-c34b166a2436" />
+output :
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 02-44-48" src="https://github.com/user-attachments/assets/b93c2503-1876-434d-8346-6750aa2c3307" />
+
+Now Routing was done:
+Using the following command: run_placement
+Global routing was hence done
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-04-50" src="https://github.com/user-attachments/assets/da008ddb-6a3c-474e-b56d-f304792ef222" />
+Placement analysis:
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-05-06" src="https://github.com/user-attachments/assets/88a4df0d-c2d0-46a6-91ed-14b1dd316bf5" />
+Using the following command routing was visualized on MAGIC:
+<img width="1280" height="226" alt="Screenshot from 2026-01-27 03-07-06" src="https://github.com/user-attachments/assets/5c706d88-ffe1-4060-8230-5347d143a5fe" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-09-25" src="https://github.com/user-attachments/assets/a2187afb-e815-412c-abcf-61e02209c97f" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-07-13" src="https://github.com/user-attachments/assets/37a4a47e-8a71-4a6e-ab27-f866b96510b1" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-09-06" src="https://github.com/user-attachments/assets/0dfbed31-3621-456f-b6c6-efbfbc0f257e" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-27 03-08-08" src="https://github.com/user-attachments/assets/fd474b52-66b6-451a-9e56-822eb4b7119d" />
 
 Status: Day 2 Completed
 
