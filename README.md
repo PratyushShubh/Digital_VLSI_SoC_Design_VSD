@@ -4,7 +4,7 @@ This repository documents my learning from the **VSD (VLSI System Design) ASIC D
 
 ---
 # DAY 1
-
+<details><summary>Theory for DAY1 </summary> 
 ## 1. Big Picture: From Application Software to Silicon
 
 ### Definition
@@ -201,7 +201,7 @@ RTL (Register Transfer Level) describes **how data moves between registers** eve
 * Industry‑grade flow
 
 ---
-
+</details>
 ## 10. OpenLANE ASIC Flow (Overview)
 
 ### Definition
@@ -240,6 +240,7 @@ OpenLANE is an **automated RTL‑to‑GDSII flow** for digital ASICs.
 **Status:** Day 1 Completed
 
 # Day 2 – Floorplanning, Power Integrity, Standard Cells, and Characterization
+<details><summary>Theory for DAY 2</summary> 
 1. Core and Die Planning
 <img width="1434" height="619" alt="Screenshot 2026-01-26 042855" src="https://github.com/user-attachments/assets/aa0f9b8a-b489-446f-a9a7-7ca9c34181b7" />
 
@@ -353,7 +354,7 @@ Delay measured between input and output crossings
 
 
 Forms the basis of .lib timing tables
-
+</details>
 
 
 
