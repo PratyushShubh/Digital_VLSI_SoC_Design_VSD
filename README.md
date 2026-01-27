@@ -425,3 +425,134 @@ Using the following command routing was visualized on MAGIC:
 
 Status: Day 2 Completed
 
+## Day 3 – CMOS Inverter Design, G-SPICE Simulation & CMOS Fabrication Basics
+
+Day 3 focused on the **CMOS inverter**, starting from circuit-level understanding to **G-SPICE simulation**, followed by an introduction to the **CMOS fabrication process**. The objective was to understand how a simple inverter is modeled, simulated, and how device-level decisions impact circuit behavior.
+
+---
+<details><summary>Theory for DAY 3</summary> 
+### CMOS Inverter – G-SPICE Simulation
+
+The first lab involved simulating a **CMOS inverter** using G-SPICE. The inverter consists of two transistors: **M1 (PMOS)** connected to VDD and **M2 (NMOS)** connected to ground. To simulate this circuit, we first created a **SPICE deck**, which is the textual representation of the circuit.
+
+To construct a valid SPICE deck, four key elements are required:
+- **Component connectivity**
+- **Component values**
+- **Node identification**
+- **Node naming**
+
+Each MOSFET line in SPICE follows a fixed terminal order:  
+**Drain, Gate, Source, Substrate**
+
+For the CMOS inverter:
+- PMOS (M1): drain = `out`, gate = `in`, source = `VDD`, substrate = `VDD`
+- NMOS (M2): drain = `out`, gate = `in`, source = `0`, substrate = `0`
+
+This allows the inverter topology to be accurately captured in text form.
+
+---
+
+### SPICE Deck Structure (Conceptual)
+
+The MOSFETs are defined with their respective **W/L values**, followed by a **load capacitance** connected at the output node to model realistic delay effects. Power supply and input sources are then defined to provide operating voltages.
+
+A **DC sweep simulation** is used to analyze inverter behavior:
+- Input voltage is swept from **0 V to 2.5 V**
+- Step size of **0.05 V**
+
+A **TSMC technology model file** is included to ensure realistic transistor characteristics during simulation.
+
+---
+
+### Effect of Transistor Sizing
+
+By increasing the **PMOS width (Wp)** to approximately **2.5× the NMOS width (Wn)**, the inverter transfer curve retains its shape but shifts slightly. This demonstrates how **transistor sizing directly affects switching characteristics**, making CMOS design highly flexible and tunable for performance, power, and noise margins.
+
+---
+
+### Static Behavior of CMOS Inverter
+
+The key static parameter analyzed is the **switching threshold (Vm)**.
+
+- **Vm** is defined as the point where **Vin = Vout**
+- At this point, **both PMOS and NMOS are ON**
+- This results in **short-circuit (leakage) current**
+
+This operating point is critical because it directly impacts **static power dissipation** and overall inverter efficiency.
+
+---
+
+### CMOS Fabrication Process (16-Mask Flow)
+
+The lab concluded with an introduction to the **CMOS fabrication process**, emphasizing how physical layers are built step-by-step using multiple masks.
+
+
+**1. Substrate Preparation**  
+A lightly doped silicon wafer is cleaned and prepared as the base material.
+
+**2. Well Formation (N-well / P-well)**  
+Ion implantation and diffusion create wells to house PMOS and NMOS devices.
+
+**3. Field Oxide Formation**  
+Thick oxide regions are grown to electrically isolate devices.
+
+**4. Gate Oxide Growth**  
+A thin silicon dioxide layer is thermally grown to form the MOS gate dielectric.
+
+**5. Polysilicon Deposition**  
+Polysilicon is deposited and patterned to form the gate electrodes.
+
+**6. Source and Drain Implantation**  
+Dopants are implanted to form source and drain regions.
+
+**7. Spacer Formation**  
+Sidewall spacers are created to control short-channel effects.
+
+**8. Contact Formation**  
+Contact holes are etched to connect metal layers to devices.
+
+**9. Metal Deposition**  
+Aluminum or copper is deposited to form interconnects.
+
+**10. Silicon Nitride Deposition**  
+Silicon nitride is deposited using **sputtering or CVD** to act as a passivation and protective layer, preventing contamination and mechanical damage.
+
+**11. Passivation Layer**  
+Final protective coating is applied to complete fabrication.
+
+
+</details>
+---
+
+
+## Lab for Day 2 :
+IO placing steps / command :
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 02-43-53" src="https://github.com/user-attachments/assets/a627d8dc-2ec7-4c74-b811-ad81c56151f8" />
+Change variable size of io:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 02-52-09" src="https://github.com/user-attachments/assets/aa4d1a90-2274-4f03-847f-948387e23681" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 02-57-45" src="https://github.com/user-attachments/assets/ac02ea58-a560-44a3-9cc7-0f5512909c81" />
+Clone github repo:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 03-09-05" src="https://github.com/user-attachments/assets/a5b04276-eb6c-41b4-889c-e3900ba6af90" />
+to access tech file now:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 03-34-16" src="https://github.com/user-attachments/assets/57493333-18f8-477f-aa02-d162dfb698e5" />
+Magic for inverter opens:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 03-37-44" src="https://github.com/user-attachments/assets/498ba843-be75-491b-87a4-a420c04bece3" />
+can see what the pointer points at using what:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 03-59-16" src="https://github.com/user-attachments/assets/d0bb2e46-1e0d-49bb-b2c5-2b5bcbc5598f" />
+opening the vim filw to make the spice deck:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 04-00-28" src="https://github.com/user-attachments/assets/321ef21f-9db0-4734-845d-82c7c9837c70" />
+look for model actual name and change it in deck:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 04-12-01" src="https://github.com/user-attachments/assets/580439d7-3335-4160-9a2a-51b3ee49a21c" />
+Correct .spice file :
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 06-01-09" src="https://github.com/user-attachments/assets/5e4ccf7e-3eaa-408e-bacb-eded8dba93d4" />
+Running ngspice and plotting it:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 05-58-14" src="https://github.com/user-attachments/assets/be1af30a-5f46-4272-9665-a03c3d577424" />
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 05-59-44" src="https://github.com/user-attachments/assets/023da87f-4313-4e19-91cd-b909cc69eb15" />
+zoomed till need for characterization:
+<img width="1280" height="768" alt="Screenshot from 2026-01-28 06-04-43" src="https://github.com/user-attachments/assets/9e86144d-9f6e-49da-ae03-a8b7a06b64de" />
+
+
+### Key Takeaway
+
+This day bridged the gap between **circuit simulation and physical realization**, highlighting how **SPICE modeling, device sizing, static behavior, and fabrication steps** are all tightly coupled in CMOS VLSI design.
+
