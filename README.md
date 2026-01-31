@@ -864,7 +864,7 @@ After detailed routing, the design is checked for:
 
 The final routed design is **DRC clean**, confirming manufacturability.
 
-![DRC Clean Layout](images/day5_drc_clean.png)
+
 
 ---
 
@@ -879,7 +879,6 @@ Key OpenLane stages executed:
 
 Terminal logs confirm successful routing and database write.
 
-![OpenLane Routing Logs](images/day5_openlane_logs.png)
 
 ---
 
