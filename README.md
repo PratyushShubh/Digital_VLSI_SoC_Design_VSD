@@ -556,3 +556,156 @@ zoomed till need for characterization:
 
 This day bridged the gap between **circuit simulation and physical realization**, highlighting how **SPICE modeling, device sizing, static behavior, and fabrication steps** are all tightly coupled in CMOS VLSI design.
 
+# 📅 Day 4 – Clock Tree Synthesis & Timing Analysis
+
+## 📌 Overview
+Day 4 focuses on **Clock Tree Synthesis (CTS)** with emphasis on **power-aware buffering, clock integrity, glitch impact, and post-CTS timing analysis**. The objective is to understand how clock distribution, buffering strategy, and decoupling techniques affect **skew, setup/hold timing, and functional correctness**.
+
+---
+
+## 1️⃣ Power Aware Clock Tree Synthesis (CTS)
+
+Clock Tree Synthesis is the process of distributing the clock signal from the source to all sequential elements while minimizing **clock skew**, controlling **latency**, and optimizing **power consumption**.  
+Power-aware CTS ensures that buffers are inserted only where required and that all clock branches drive **balanced capacitive loads**.
+
+Key ideas covered:
+- Multi-level clock buffering
+- Identical buffers at the same hierarchy level
+- Equal load driven at every node
+- Delay dependency on input slew and output load
+
+<img width="1791" height="1074" alt="Screenshot 2026-02-01 000458" src="https://github.com/user-attachments/assets/20950378-d679-4bd9-84dc-aa591e02749b" />
+
+---
+
+## 2️⃣ Buffer Delay Characterization using Liberty Tables
+
+Clock buffer delay is characterized using **Liberty delay tables**, where delay is a function of:
+- **Input slew**
+- **Output load capacitance**
+
+These tables help CTS tools choose the appropriate buffer size to maintain clock edge quality while avoiding unnecessary power overhead.
+
+Observations:
+- Increasing output load increases propagation delay
+- Poor input slew degrades clock transition quality
+- Proper buffer sizing avoids over-buffering and excess dynamic power
+
+---
+
+## 3️⃣ Load Balancing in Clock Buffer Trees by H tree
+
+A symmetric buffer tree was constructed to ensure that:
+- Each node at the same level drives the same load
+- Identical buffers are used at identical hierarchy levels
+
+Assumptions:
+- C1 = C2 = C3 = C4 = 25 fF  
+- Cbuf1 = Cbuf2 = 30 fF  
+
+Calculated capacitances:
+- Total capacitance at node A = 60 fF  
+- Total capacitance at node B = 50 fF  
+- Total capacitance at node C = 50 fF  
+
+This symmetry helps minimize clock skew and ensures predictable clock latency.
+
+
+
+<img width="903" height="751" alt="Screenshot 2026-02-01 000619" src="https://github.com/user-attachments/assets/5b9bd6ed-076d-43c7-b2c4-047c6d605c49" />
+
+
+---
+
+## 4️⃣ Role of Decoupling Capacitors (DECAP)
+
+Decoupling capacitors (DECAPs) are inserted near clock buffers and logic blocks to:
+- Stabilize supply voltage
+- Reduce IR drop
+- Absorb transient switching currents
+- Improve clock signal integrity
+
+Proper DECAP placement is critical in high-frequency clock networks to prevent voltage droop and jitter.
+
+
+
+
+---
+
+## 5️⃣ Clock Glitches and Their Impact on Functionality
+
+Clock glitches can cause unintended switching of sequential elements, leading to **incorrect data being latched**.  
+In memory and control logic, even a small glitch can corrupt stored data and result in functional failure.
+
+This section highlights how coupling capacitance and improper buffering can introduce glitches into the clock path.
+
+<img width="1089" height="717" alt="Screenshot 2026-02-01 000643" src="https://github.com/user-attachments/assets/75956afa-08fb-478d-b727-40129175d3fb" />
+
+---
+
+## 6️⃣ Post-CTS Static Timing Analysis (STA)
+
+After CTS, **Static Timing Analysis (STA)** is performed to validate setup and hold constraints.
+
+Steps performed:
+- Read CTS netlist
+- Read max and min liberty files
+- Apply SDC constraints
+- Set propagated clocks
+- Analyze timing paths
+
+Key parameters analyzed:
+- Data arrival time
+- Data required time
+- Setup and hold slack
+- Clock latency and skew
+
+
+
+---
+
+## 7️⃣ Setup and Hold Slack Analysis
+
+Both **setup** and **hold** timing were analyzed to ensure timing closure.
+
+- Setup slack violations indicate data arriving late
+- Hold slack violations indicate data arriving too early
+
+The reports show both **violated** and **met** paths, helping identify critical timing paths in the design.
+
+
+
+---
+
+## 8️⃣ Clock Skew Analysis
+
+Clock skew was evaluated using:
+- `report_clock_skew -setup`
+- `report_clock_skew -hold`
+
+Observations:
+- Clock latency differences across endpoints
+- Clock reconvergence pessimism (CRPR)
+- Skew maintained within acceptable limits
+
+Balanced CTS ensures skew remains controlled across the design.
+
+#Lab for day 4
+
+<img width="1004" height="202" alt="Screenshot 2026-02-01 000816" src="https://github.com/user-attachments/assets/e1fe9c39-cdd6-4612-852c-3fcbf8668640" />
+<img width="587" height="190" alt="Screenshot 2026-02-01 000859" src="https://github.com/user-attachments/assets/06739c73-5317-439f-81f0-1fe9565edfbd" />
+<img width="662" height="827" alt="Screenshot 2026-02-01 000910" src="https://github.com/user-attachments/assets/d2543bf7-0fbb-46fe-83fd-449c3a970ce5" />
+<img width="826" height="744" alt="Screenshot 2026-02-01 001005" src="https://github.com/user-attachments/assets/8f23d652-aa73-4c48-83ee-5235de395a6c" />
+
+
+
+---
+
+## 📘 Key Learnings from Day 4
+- Importance of power-aware CTS in modern VLSI designs
+- Role of buffer sizing and load balancing in skew reduction
+- Impact of glitches on functional correctness
+- Significance of DECAP placement in clock networks
+- Interpreting post-CTS STA reports for timing closure
+
+
