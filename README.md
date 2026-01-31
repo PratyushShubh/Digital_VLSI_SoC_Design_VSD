@@ -692,11 +692,17 @@ Balanced CTS ensures skew remains controlled across the design.
 
 #Lab for day 4
 
-<img width="1004" height="202" alt="Screenshot 2026-02-01 000816" src="https://github.com/user-attachments/assets/e1fe9c39-cdd6-4612-852c-3fcbf8668640" />
-<img width="587" height="190" alt="Screenshot 2026-02-01 000859" src="https://github.com/user-attachments/assets/06739c73-5317-439f-81f0-1fe9565edfbd" />
-<img width="662" height="827" alt="Screenshot 2026-02-01 000910" src="https://github.com/user-attachments/assets/d2543bf7-0fbb-46fe-83fd-449c3a970ce5" />
-<img width="826" height="744" alt="Screenshot 2026-02-01 001005" src="https://github.com/user-attachments/assets/8f23d652-aa73-4c48-83ee-5235de395a6c" />
+<img width="1004" height="202" alt="Screenshot 2026-02-01 000816" src="https://github.com/user-attachments/assets/0960fa20-fa1b-485a-9c0f-1ac5d148cf8b" />
 
+
+<img width="587" height="190" alt="Screenshot 2026-02-01 000859" src="https://github.com/user-attachments/assets/e2748f92-38be-4e57-a513-c4bc61a763c0" />
+
+<img width="662" height="827" alt="Screenshot 2026-02-01 000910" src="https://github.com/user-attachments/assets/6f4ae734-dbea-4f1e-9907-420008d70be3" />
+
+
+
+
+<img width="826" height="744" alt="Screenshot 2026-02-01 001005" src="https://github.com/user-attachments/assets/58fec24a-9728-4a1e-a2c6-778c5f3257fc" />
 
 
 ---
@@ -707,5 +713,211 @@ Balanced CTS ensures skew remains controlled across the design.
 - Impact of glitches on functional correctness
 - Significance of DECAP placement in clock networks
 - Interpreting post-CTS STA reports for timing closure
+
+# 📅 Day 5 – Routing, TritonRoute & GDSII Generation (RTL → GDSII)
+
+## 📌 Overview
+Day 5 covers the **final backend stages of the RTL-to-GDSII flow**, focusing on **routing algorithms, OpenLane routing stages, TritonRoute internals, DRC cleanliness, and final GDSII readiness**. This stage transforms a placed-and-clocked design into a **manufacturable layout**.
+
+---
+
+## 1️⃣ Routing in Physical Design
+
+Routing connects all placed standard cells, macros, and IO pins while satisfying **design rules (DRC)** and **timing constraints**. It is divided into two major stages:
+
+- **Global (Fast) Routing**
+- **Detailed Routing**
+
+
+
+---
+
+## 2️⃣ Global Routing (Fast Route)
+
+Global routing performs a **coarse-grained path planning** over a grid-based abstraction of the design. It:
+- Divides the layout into global routing cells
+- Estimates routing congestion
+- Generates **route guides** for detailed routing
+
+This stage prioritizes **speed and congestion awareness** over exact geometrical correctness.
+
+---
+
+## 3️⃣ Lee’s Maze Routing Algorithm
+
+Lee’s Maze algorithm is a classic **grid-based shortest-path routing algorithm** used for obstacle-aware routing.
+
+Key characteristics:
+- Uses wave propagation to find the shortest path
+- Guarantees a valid path if one exists
+- Computationally expensive, but optimal
+<img width="760" height="511" alt="Screenshot 2026-02-01 001903" src="https://github.com/user-attachments/assets/e78ea505-9349-409b-8dcf-3b6c5d2882e5" />
+The numbered grid represents wave expansion, and the final routed path is traced back from target to source.
+
+
+
+---
+
+## 4️⃣ Detailed Routing using TritonRoute
+
+After global routing, **TritonRoute** performs **detailed routing**, converting abstract route guides into **exact metal geometries**.
+
+The Algorithm is:
+
+
+<img width="694" height="386" alt="Screenshot 2026-02-01 002530" src="https://github.com/user-attachments/assets/904b8054-3ae2-4fa1-9108-23c76b70c765" />
+
+TritonRoute:
+- Honors preprocessed route guides
+- Resolves design rule constraints
+- Handles pin access and layer assignments
+- Produces DRC-clean layouts
+
+
+
+---<img width="1775" height="827" alt="Screenshot 2026-02-01 002344" src="https://github.com/user-attachments/assets/dabedeea-b366-49ce-9c0e-cf72d2cf24fc" />
+
+
+
+
+
+
+## 5️⃣ Preprocessed Route Guides
+
+Before detailed routing, route guides undergo preprocessing to ensure:
+- Unit width
+- Preferred routing direction per metal layer
+- Inter-guide connectivity
+
+Operations include:
+- Splitting
+- Merging
+- Bridging
+
+This improves routing success and reduces DRC violations.
+
+
+---
+
+## 6️⃣ Handling Connectivity with Access Points (AP)
+
+TritonRoute uses **Access Points (APs)** to connect:
+- Pins
+- Lower and upper metal layers
+- IO ports
+
+Definitions:
+- **Access Point (AP):** On-grid point used for routing connectivity
+- **Access Point Cluster (APC):** Group of APs derived from the same segment, pin, or guide
+
+These ensure robust pin accessibility across layers.
+
+
+
+---
+
+## 7️⃣ Routing Topology Optimization
+
+Routing topology is optimized using **graph-based techniques**, where:
+- AP clusters act as nodes
+- Edge costs are based on Manhattan distance
+- A **Minimum Spanning Tree (MST)** determines optimal connectivity
+
+This minimizes wirelength and improves routability.
+
+
+<img width="1775" height="827" alt="Screenshot 2026-02-01 002344" src="https://github.com/user-attachments/assets/52610f48-aeba-4a68-b868-903b0f96e007" />
+
+<img width="1520" height="538" alt="Screenshot 2026-02-01 002405" src="https://github.com/user-attachments/assets/e74383da-5395-4848-b4b3-d5f2a87071d0" />
+
+
+
+<img width="1500" height="909" alt="Screenshot 2026-02-01 002417" src="https://github.com/user-attachments/assets/7a6d8439-adf6-4cd0-9ff7-13f34d24f710" />
+
+
+<img width="1752" height="950" alt="Screenshot 2026-02-01 002510" src="https://github.com/user-attachments/assets/76b4f50f-3a57-48ef-8b1d-e050479c5932" />
+
+
+
+
+## 8️⃣ Power Distribution Network (PDN) Integration
+
+The PDN provides stable power to all standard cells and macros using:
+- Power rings
+- Power straps
+- Standard cell power rails
+
+PDN is generated before routing and respected during detailed routing.
+
+
+<img width="1091" height="717" alt="Screenshot 2026-02-01 002222" src="https://github.com/user-attachments/assets/02be9db8-4c77-4a15-bd6d-3f9ea21d54ea" />
+
+---
+
+## 9️⃣ DRC Clean Routing
+
+After detailed routing, the design is checked for:
+- Spacing violations
+- Shorts
+- Opens
+- Layer rule violations
+
+The final routed design is **DRC clean**, confirming manufacturability.
+
+![DRC Clean Layout](images/day5_drc_clean.png)
+
+---
+
+## 🔟 OpenLane Routing Flow Execution
+
+Key OpenLane stages executed:
+- `prep -design`
+- PDN generation
+- Global routing
+- Detailed routing
+- Writing final DEF database
+
+Terminal logs confirm successful routing and database write.
+
+![OpenLane Routing Logs](images/day5_openlane_logs.png)
+
+---
+
+Lab command for checking:
+
+<img width="1004" height="458" alt="Screenshot 2026-02-01 002143" src="https://github.com/user-attachments/assets/cdf39916-6cdf-406f-bbbd-b17a820f2936" />
+
+<img width="660" height="77" alt="Screenshot 2026-02-01 002254" src="https://github.com/user-attachments/assets/93f8991b-2357-4b74-a874-4a425981e0e7" />
+
+
+
+## 1️⃣1️⃣ Final GDSII Readiness
+
+After routing and DRC cleanup, the design is ready for:
+- GDSII stream-out
+- LVS verification
+- Foundry tape-out flow
+
+This marks the completion of the **RTL to GDSII physical design flow**.
+
+---
+
+## 📘 Key Learnings from Day 5
+- Difference between global and detailed routing
+- Lee’s Maze algorithm fundamentals
+- TritonRoute architecture and routing strategy
+- Importance of route guide preprocessing
+- Role of access points in connectivity
+- Achieving DRC-clean layouts for tape-out
+
+---
+
+## 🙏 Acknowledgement
+
+This RTL-to-GDSII implementation was carried out by **Pratyush** as part of the VLSI physical design learning journey.
+
+Sincere thanks to the **VSD Team**, **Kunal Ghosh**, and all associated educators and contributors for their structured guidance, industry-oriented content, and continuous support in understanding the complete open-source VLSI flow using OpenLane.
+
+This course provided a strong practical foundation in modern digital backend design.
 
 
